@@ -1,0 +1,1 @@
+This project is designed to TopEntreprise Company, and it is used to manage its jobs and contracts.
