@@ -24,15 +24,17 @@
     $historyManager = new HistoryManager($pdo);
 	//Action Add Processing Begin
     if($action == "add"){
-        $numero = htmlentities($_POST['numero']);
-        if ( $affaireManager->exists($numero)  ) {
-            $actionMessage = "Erreur Ajout affaire : Une affaire existe déjà avec ce Numéro : <strong>".$numero."</strong>.";
-            $typeMessage = "error";
-            header('Location:../add-affaire.php');
-            exit();
-        }
-        if( !empty($_POST['nomClient']) ){
-			//add important classes managers
+        if ( !empty($_POST['numero']) and !empty($_POST['dateRdv']) and !empty($_POST['nomClient']) ) {
+            $numero = htmlentities($_POST['numero']);
+            if ( $affaireManager->exists($numero)  ) {
+                $actionMessage = "<strong>Erreur Ajout affaire</strong> : Une affaire existe déjà avec ce Numéro : <strong>".$numero."</strong>.";
+                $typeMessage = "error";
+                $_SESSION['affaire-action-message'] = $actionMessage;
+                $_SESSION['affaire-type-message'] = $typeMessage;
+                header('Location:../add-affaire.php');
+                exit();
+            }
+            //add important classes managers
             $clientManager = new ClientManager($pdo);
             $sourceManager = new SourceManager($pdo);
             $rendezVousManager = new RendezVousManager($pdo);       
@@ -130,38 +132,38 @@
             /* Get form fields & other processes End : ################################################# 
              * here we get first all the form fields 
              * */
-			$createdBy = $_SESSION['user']->login();
+            $createdBy = $_SESSION['user']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $affaire = new Affaire(array(
                 'numero' => $numero,
-				'dateRdv' => $dateRdv,
-				'heureRdv' => $heureRdv,
-				'dateSortie' => $dateSortie,
-				'nature' => $nature,
-				'prix' => $prix,
-				'paye' => $paye,
-				'nomClient' => $nomClient,
-				'cinClient' => $cinClient,
-				'telephoneClient' => $telephonClient,
-				'mandataire' => $mandataire,
-				'status' => $status,
-				'province' => $province,
-				'mp' => $municipalite,
-				'cr' => $commune,
-				'quartier' => $quartier,
-				'sousquartier' => $sousQuartier,
-				'propriete' => $propriete,
-				'nomTopographe' => $nomTopographe,
-				'montantTopographe' => $montantTopographe,
-				'nomService' => $nomService,
-				'montantService' => $montantService,
-				'nomSource' => $nomSource,
-				'telephoneSource' => $telephoneSource,
-				'montantSource' => $montantSource,
-				'created' => $created,
-            	'createdBy' => $createdBy
-			));
+                'dateRdv' => $dateRdv,
+                'heureRdv' => $heureRdv,
+                'dateSortie' => $dateSortie,
+                'nature' => $nature,
+                'prix' => $prix,
+                'paye' => $paye,
+                'nomClient' => $nomClient,
+                'cinClient' => $cinClient,
+                'telephoneClient' => $telephonClient,
+                'mandataire' => $mandataire,
+                'status' => $status,
+                'province' => $province,
+                'mp' => $municipalite,
+                'cr' => $commune,
+                'quartier' => $quartier,
+                'sousquartier' => $sousQuartier,
+                'propriete' => $propriete,
+                'nomTopographe' => $nomTopographe,
+                'montantTopographe' => $montantTopographe,
+                'nomService' => $nomService,
+                'montantService' => $montantService,
+                'nomSource' => $nomSource,
+                'telephoneSource' => $telephoneSource,
+                'montantSource' => $montantSource,
+                'created' => $created,
+                'createdBy' => $createdBy
+            ));
             //add it to db
             $affaireManager->add($affaire);
             //Data traceability Begin
@@ -179,10 +181,12 @@
             $actionMessage = "<strong>Opération Valide</strong> : Affaire Ajouté(e) avec succès.";  
             $typeMessage = "success";
         }
-        else{
-            $actionMessage = "<strong>Erreur Ajout Affaire</strong> : Vous devez remplir le champ 'Client'.";
+        else {
+            $actionMessage = "<strong>Erreur Ajout Affaire</strong> : Vous devez remplir les champs <strong>Numéro, Nom du Client, Date Rendez-Vous</strong>.";
             $typeMessage = "error";
-        }
+        } 
+        $_SESSION['affaire-action-message'] = $actionMessage;
+        $_SESSION['affaire-type-message'] = $typeMessage;
         $redirectLink = "Location:../add-affaire.php";
     }
     //Action Add Processing End

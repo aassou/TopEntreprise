@@ -168,7 +168,7 @@
                                         <div class="control-group">
                                             <label class="control-label" for="cinClient">CIN</label>
                                             <div class="controls">
-                                                <input required="required" type="text" id="cinClient" name="cinClient" class="m-wrap span12" />
+                                                <input type="text" id="cinClient" name="cinClient" class="m-wrap span12" />
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +233,7 @@
                                             <label class="control-label" for="dateRdv">Date Rendez-Vous</label>
                                             <div class="controls">
                                                 <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-    		                                        <input name="dateRdv" id="dateRdv" class="m-wrap span12 m-ctrl-small date-picker" type="text" />
+    		                                        <input required="required" name="dateRdv" id="dateRdv" class="m-wrap span12 m-ctrl-small date-picker" type="text" />
     		                                        <span class="add-on"><i class="icon-calendar"></i></span>
     		                                    </div>
                                             </div>
