@@ -217,7 +217,7 @@
         $mois = htmlentities($_POST['mois']);
         $annee = htmlentities($_POST['annee']);
         $numero = htmlentities($_POST['numero']);
-        if(!empty($_POST['dateRdv'])){
+        if( !empty($_POST['numero']) and !empty($_POST['nomClient']) and !empty($_POST['dateRdv']) ){
 			$dateRdv = htmlentities($_POST['dateRdv']);
 			$heureRdv = htmlentities($_POST['heureRdv']);
 			$dateSortie = htmlentities($_POST['dateSortie']);
