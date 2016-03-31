@@ -198,7 +198,7 @@
             }
         }
         else {
-            $actionMessage = "<strong>Erreur Ajout Affaire</strong> : Vous devez remplir les champs <strong>Numéro, Nom du Client, Date Rendez-Vous</strong>.";
+            $actionMessage = "<strong>Erreur Ajout Affaire</strong> : Vous devez remplir les champs <strong>Numéro Affaire, Nom du Client, Date Rendez-Vous</strong>.";
             $typeMessage = "error";
             if ( isset($_GET['source']) and $_GET['source'] == 1 ) {
                 $redirectLink = "Location:../add-affaire.php?source=1";
@@ -216,8 +216,19 @@
         $idAffaire = htmlentities($_POST['idAffaire']);
         $mois = htmlentities($_POST['mois']);
         $annee = htmlentities($_POST['annee']);
-        $numero = htmlentities($_POST['numero']);
+        //get affaire
+        $affaireFromDb = $affaireManager->getAffaireById($idAffaire);
         if( !empty($_POST['numero']) and !empty($_POST['nomClient']) and !empty($_POST['dateRdv']) ){
+            $numero = htmlentities($_POST['numero']);
+            if ( $numero != $affaireFromDb->numero() and $affaireManager->exists($numero) ) {
+                $actionMessage = "<strong>Erreur Modifcation Affaire</strong> : Une affaire existe déjà avec ce Numéro : <strong>".$numero."</strong>.";
+                $typeMessage = "error";
+                $_SESSION['affaire-action-message'] = $actionMessage;
+                $_SESSION['affaire-type-message'] = $typeMessage;
+                $redirectLink = "Location:../affaire-update.php?idAffaire=".$idAffaire."&mois=".$mois."&annee=".$annee;
+                header($redirectLink);
+                exit();
+            }
 			$dateRdv = htmlentities($_POST['dateRdv']);
 			$heureRdv = htmlentities($_POST['heureRdv']);
 			$dateSortie = htmlentities($_POST['dateSortie']);
@@ -283,7 +294,7 @@
             $typeMessage = "success";
         }
         else{
-            $actionMessage = "<strong>Erreur Modification Affaire</strong> : Vous devez remplir le champ 'dateRdv'.";
+            $actionMessage = "<strong>Erreur Modification Affaire</strong> : Vous devez remplir les champs <strong>Numéro Affaire, Nom du Client, Date Rendez-Vous</strong>.";
             $typeMessage = "error";
         }
         $redirectLink = "Location:../affaire-update.php?idAffaire=".$idAffaire."&mois=".$mois."&annee=".$annee;
