@@ -129,22 +129,6 @@
                             <h4>Ajouter une affaire</h4>
                         </div>
                         <div class="portlet-body form">
-                        <?php if(isset($_SESSION['affaire-add-success'])){ ?>
-                            <div class="alert alert-success">
-                              <button class="close" data-dismiss="alert"></button>
-                                 <?= $_SESSION['affaire-add-success'] ?>        
-                            </div>
-                         <?php } 
-                            unset($_SESSION['affaire-add-success']);
-                         ?>
-                         <?php if(isset($_SESSION['affaire-add-error'])){ ?>
-                            <div class="alert alert-error">
-                                <button class="close" data-dismiss="alert"></button>
-                                <?= $_SESSION['affaire-add-error'] ?>       
-                            </div>
-                         <?php } 
-                            unset($_SESSION['affaire-add-error']);
-                         ?>
                              <form id="add-affaire-form" action="controller/AffaireActionController.php" method="POST" class="horizontal-form" enctype="multipart/form-data">
                                 <h3>Numéro Affaire</h3>
                                 <div class="row-fluid">
@@ -188,7 +172,7 @@
                                         <div class="control-group">
                                             <label class="control-label" for="cinClient">CIN</label>
                                             <div class="controls">
-                                                <input value="<?= $affaire->cinClient() ?>" required="required" type="text" id="cinClient" name="cinClient" class="m-wrap span12" />
+                                                <input value="<?= $affaire->cinClient() ?>" type="text" id="cinClient" name="cinClient" class="m-wrap span12" />
                                             </div>
                                         </div>
                                     </div>
@@ -253,7 +237,7 @@
                                             <label class="control-label" for="dateRdv">Date Rendez-Vous</label>
                                             <div class="controls">
                                                 <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                    <input value="<?= date('Y-m-d', strtotime($affaire->dateRdv())) ?>" name="dateRdv" id="dateRdv" class="m-wrap span12 m-ctrl-small date-picker" type="text" />
+                                                    <input required="required" value="<?= date('Y-m-d', strtotime($affaire->dateRdv())) ?>" name="dateRdv" id="dateRdv" class="m-wrap span12 m-ctrl-small date-picker" type="text" />
                                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                                 </div>
                                             </div>

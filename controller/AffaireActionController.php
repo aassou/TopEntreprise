@@ -31,7 +31,15 @@
                 $typeMessage = "error";
                 $_SESSION['affaire-action-message'] = $actionMessage;
                 $_SESSION['affaire-type-message'] = $typeMessage;
-                header('Location:../add-affaire.php');
+                if ( isset($_GET['source']) and $_GET['source'] == 1 ) {
+                $redirectLink = "Location:../add-affaire.php?source=1";
+                }
+                else if ( isset($_GET['source']) and $_GET['source'] == 2 ) {
+                    $mois = $_GET['mois'];
+                    $annee = $_GET['annee'];
+                    $redirectLink = "Location:../add-affaire.php?source=2&mois=".$mois."&annee=".$annee;
+                }
+                header($redirectLink);
                 exit();
             }
             //add important classes managers
@@ -180,14 +188,27 @@
             //Data traceability End
             $actionMessage = "<strong>Opération Valide</strong> : Affaire Ajouté(e) avec succès.";  
             $typeMessage = "success";
+            if ( isset($_GET['source']) and $_GET['source'] == 1 ) {
+                $redirectLink = "Location:../add-affaire.php?source=1";
+            }
+            else if ( isset($_GET['source']) and $_GET['source'] == 2 ) {
+                $mois = $_GET['mois'];
+                $annee = $_GET['annee'];
+                $redirectLink = "Location:../add-affaire.php?source=2&mois=".$mois."&annee=".$annee;
+            }
         }
         else {
             $actionMessage = "<strong>Erreur Ajout Affaire</strong> : Vous devez remplir les champs <strong>Numéro, Nom du Client, Date Rendez-Vous</strong>.";
             $typeMessage = "error";
+            if ( isset($_GET['source']) and $_GET['source'] == 1 ) {
+                $redirectLink = "Location:../add-affaire.php?source=1";
+            }
+            else if ( isset($_GET['source']) and $_GET['source'] == 2 ) {
+                $mois = $_GET['mois'];
+                $annee = $_GET['annee'];
+                $redirectLink = "Location:../add-affaire.php?source=2&mois=".$mois."&annee=".$annee;
+            }
         } 
-        $_SESSION['affaire-action-message'] = $actionMessage;
-        $_SESSION['affaire-type-message'] = $typeMessage;
-        $redirectLink = "Location:../add-affaire.php";
     }
     //Action Add Processing End
     //Action Update Processing Begin
