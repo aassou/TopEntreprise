@@ -86,12 +86,14 @@
 								<i class="icon-angle-right"></i>
 							</li>
 							<?php
+							$backLink = "affaires-group.php";
 							if ( isset($_GET['source']) && $_GET['source'] == 2  ) {
 							    $mois = $_GET['mois'];
                                 $annee = $_GET['annee'];
+                                $backLink = "affaires.php?mois=".$mois."&annee=".$annee;
 							?>
 							<li>
-                                <a href="affaires.php?mois=<?= $mois ?>&annee=<?= $annee ?>"><strong><?= $mois."/".$annee ?></strong></a> 
+                                <a href="<?= $backLink ?>"><strong><?= $mois."/".$annee ?></strong></a> 
                                 <i class="icon-angle-right"></i>
                             </li>
                             <?php
@@ -399,7 +401,7 @@
                                 	<input type="hidden" id="idCr" name="idCr" />
                                 	<input type="hidden" id="idQuartier" name="idQuartier" />
                                     <input type="hidden" id="idSousQuartier" name="idSousQuartier" />
-                                    <a href="affaires.php" class="btn red"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
+                                    <a href="<?= $backLink ?>" class="btn red"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                     <button type="submit" class="btn black"><i class="icon-save"></i> Enregistrer</button>
                                 </div>
                              </form>
